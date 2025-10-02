@@ -30,7 +30,6 @@ export default function Modal({ title, message, onClose }) {
         <p>{message}</p>
         <button
           onClick={() => {
-            console.log("Botão Close clicado"); 
             if (onClose) onClose();
           }}
           style={{

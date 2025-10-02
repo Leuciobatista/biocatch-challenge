@@ -5,7 +5,6 @@ import { getCdApi } from "../bc";
 import { initSession } from "../api";
 import Modal from "../components/Modal";
 
-// Material UI
 import {
   Container,
   Card,
@@ -18,7 +17,7 @@ import {
 export default function Login() {
   const { csid, setCsid } = useSession();
   const [loading, setLoading] = useState(false);
-  const [modalData, setModalData] = useState(null); // { message, success }
+  const [modalData, setModalData] = useState(null); 
   const navigate = useNavigate();
 
   async function handleLogin() {
@@ -48,7 +47,7 @@ export default function Login() {
         setModalData({
           message:
             "⚠️ Init request sent, but blocked by CORS (expected in localhost).",
-          success: true, // força sucesso para continuar fluxo
+          success: true, 
         });
       }
     } finally {

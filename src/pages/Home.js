@@ -1,6 +1,6 @@
 import { Container, Typography, Card, CardContent, Button } from "@mui/material";
 import biocatchLogo from "../img/logo.png";
-import "../styles.css"; // importa o CSS global
+import "../styles.css"; 
 
 export default function Home() {
   return (

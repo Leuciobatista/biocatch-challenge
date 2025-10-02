@@ -1,5 +1,5 @@
 export default function Modal({ title, message, onClose }) {
-  if (!message) return null; // não renderiza se não tiver mensagem
+  if (!message) return null; 
 
   return (
     <div
@@ -30,7 +30,7 @@ export default function Modal({ title, message, onClose }) {
         <p>{message}</p>
         <button
           onClick={() => {
-            console.log("Botão Close clicado"); // 👈 log de teste
+            console.log("Botão Close clicado"); 
             if (onClose) onClose();
           }}
           style={{

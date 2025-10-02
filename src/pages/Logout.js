@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "../SessionContext";
 import { getCdApi } from "../bc";
 
-// Material UI
+
 import {
   Container,
   Card,
@@ -17,16 +17,13 @@ export default function Logout() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // Limpa a sessão atual
     setCsid(null);
 
-    // Atualiza contexto no BioCatch
     const cdApi = getCdApi();
     if (cdApi) {
       cdApi.changeContext("logout_screen");
       console.log("[BioCatch] changeContext: logout_screen");
 
-      // Opcional: gera novo CSID para próxima sessão
       const newCsid = `session-${Date.now()}`;
       cdApi.setCustomerSessionId(newCsid);
       console.log("[BioCatch] set new CSID after logout:", newCsid);

@@ -4,7 +4,7 @@ import { getScore } from "../api";
 import { getCdApi } from "../bc";
 import Modal from "../components/Modal";
 
-// Material UI
+
 import {
   Container,
   Card,
@@ -13,7 +13,7 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
-import "../styles.css"; // importa estilos globais
+import "../styles.css"; 
 
 export default function Payment() {
   const { csid } = useSession();

@@ -6,7 +6,7 @@ import Overview from "./pages/Overview";
 import Payment from "./pages/Payment";
 import Logout from "./pages/Logout";
 import NavBar from "./components/NavBar";
-import { SessionProvider } from "./SessionContext";   // ✅ add this
+import { SessionProvider } from "./SessionContext";  
 import { useEffect } from "react";
 import { getCdApi } from "./bc";
 

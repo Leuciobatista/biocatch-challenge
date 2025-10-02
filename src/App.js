@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Overview from "./pages/Overview";
 import Payment from "./pages/Payment";
 import Logout from "./pages/Logout";
 import NavBar from "./components/NavBar";
@@ -18,7 +17,6 @@ function UseBioCatchContextPerRoute() {
     const map = {
       "/": "home_screen",
       "/login": "login_screen",
-      "/overview": "account_overview",
       "/payment": "payment_screen",
       "/logout": "logout_screen",
     };
@@ -36,7 +34,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/overview" element={<Overview />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>

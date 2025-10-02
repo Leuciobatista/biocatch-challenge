@@ -1,70 +1,171 @@
-# Getting Started with Create React App
+# BioCatch Challenge – React SPA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📌 Description
 
-## Available Scripts
+This project was developed as part of the **BioCatch Challenge**.  
+The goal is to demonstrate the integration of the **BioCatch SDK** in a simple site, simulating a banking journey with the steps:
 
-In the project directory, you can run:
+👉 **Home → Login → Payment → Logout**
 
-### `npm start`
+The site does not have its own backend (as per the challenge instructions).  
+The API calls (`init` and `getScore`) are made directly from the frontend to a mock endpoint (Zapier).  
+In **localhost**, due to CORS, responses may be blocked — but the payload is correctly sent and can be inspected with browser developer tools.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Technologies
 
-### `npm test`
+- **React (SPA)** → application structure
+- **React Router** → routing between Home, Login, Payment, Logout
+- **Material UI + Bootstrap** → modern and responsive UI
+- **Context API** → manage the **Customer Session ID (CSID)** during the session
+- **BioCatch SDK JS (mock)** → included in all pages through `public/index.html`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📂 Project structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+  ├── api.js                 # init/getScore requests (fetch → Zapier)
+  ├── bc.js                  # helper to access window.cdApi (BioCatch SDK)
+  ├── SessionContext.js      # provider for the CSID
+  ├── styles.css             # global styles (cards, buttons, layout)
+  ├── components/
+  │   ├── Modal.js           # reusable modal
+  │   └── NavBar.js          # navigation bar
+  ├── pages/
+  │   ├── Home.js
+  │   ├── Login.js
+  │   ├── Payment.js
+  │   └── Logout.js
+  ├── App.js                 # route definitions
+  └── index.js               # app entry point
+public/
+  ├── index.html             # includes BioCatch SDK script
+  └── favicon.ico
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ⚙️ Installation and execution
 
-### `npm run eject`
+1. Clone the repository:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/youruser/biocatch-challenge.git
+cd biocatch-challenge
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Run the application:
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Open in the browser:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+http://localhost:3000
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🖥️ Main features
 
-### Analyzing the Bundle Size
+### 1. **Home**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Shows logo and introduction
+- **Start Demo** button → goes to Login
 
-### Making a Progressive Web App
+### 2. **Login**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Defines **CSID** for the session
+- Calls `cdApi.changeContext("login_screen")`
+- On **Login** button click:
+  - Triggers `init` API call
+  - Shows result in a **Modal**
+  - After closing, redirects to **Payment**
 
-### Advanced Configuration
+### 3. **Payment**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Calls `cdApi.changeContext("payment_screen")`
+- On **Make Payment** button click:
+  - Triggers `getScore` API call
+  - Shows result in **Modal**
 
-### Deployment
+### 4. **Logout**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Calls `cdApi.changeContext("logout_screen")`
+- Clears CSID and generates a new one
+- Displays confirmation message
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🔎 How to validate
+
+Use **DevTools (F12)** → **Network tab**:
+
+- Click **Login** → see `init` request sent
+- Click **Payment** → see `getScore` request sent
+- Check **Payload**: customerSessionId, action, activityType, iam, etc.
+
+⚠️ Note: In localhost, due to CORS, the response may not appear, but the payload is correctly sent.  
+In production, calls would be made via **backend**, avoiding this issue.
+
+---
+
+## 🔐 Bonus questions
+
+### 1. SPAs
+
+In a SPA like React, the DOM is not fully reloaded.  
+Solution: call `cdApi.changeContext()` whenever the user navigates to a new route.  
+This project does that in each page (`login_screen`, `payment_screen`, `logout_screen`).
+
+### 2. CSP (Content Security Policy)
+
+A minimal CSP to allow the SDK would be:
+
+```http
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'self' https://bcdn-4ff4f23f.we-stats.com;
+  connect-src 'self' https://wup.biocatch.com https://hooks.zapier.com;
+  img-src 'self' data:;
+  style-src 'self' 'unsafe-inline';
+```
+
+### 3. Different domains
+
+Loading JS from another domain can cause CORS or CSP issues.  
+Solution: host the SDK on the bank’s own domain or use a trusted HTTPS CDN.
+
+### 4. iFrames
+
+If the iFrame is from another domain, the SDK cannot collect data (same-origin policy).  
+Solution: inject the SDK inside the iFrame or use `postMessage` to communicate events between iFrame and parent.
+
+### 5. Frontend vs Backend
+
+In this challenge, API calls are made from the frontend.  
+👉 In **production**, calls must be made by the **backend** to ensure security and avoid user manipulation.
+
+---
+
+## ✅ Conclusion
+
+This project meets all challenge requirements:
+
+- SDK imported on all pages
+- CSID consistent across session
+- Contexts defined per page
+- API calls triggered at the right events (`init`, `getScore`)
+- Clear demonstration in Console/Network
+- Professional, responsive UI
